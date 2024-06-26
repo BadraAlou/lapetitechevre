@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation d'Achat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .container::before, .container::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            bottom: -5px;
+            left: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.7;
+            border-radius: 15px;
+        }
+        h1 {
+            font-family: 'Lobster', cursive;
+            color: #48c6ef;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            animation: bounceInDown 1s ease-out;
+        }
+        .confirmation-message {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #333;
+            animation: fadeInUp 1s ease-out;
+        }
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+        .actions button {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .actions .annuler {
+            background-color: #ff5f5f;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 95, 95, 0.4);
+        }
+        .actions .annuler:hover {
+            background-color: #ff3b3b;
+            box-shadow: 0 10px 20px rgba(255, 59, 59, 0.6);
+            transform: translateY(-5px);
+        }
+        .actions .telecharger {
+            background-color: #48c6ef;
+            color: white;
+            box-shadow: 0 5px 15px rgba(72, 198, 239, 0.4);
+        }
+        .actions .telecharger:hover {
+            background-color: #1aa1df;
+            box-shadow: 0 10px 20px rgba(26, 161, 223, 0.6);
+            transform: translateY(-5px);
+        }
+        .actions .telecharger a {
+            color: white;
+            text-decoration: none;
+        }
+        .btn-home {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-home:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Merci pour votre Achat, {{ commande.nom_client }} !</h1>
+        <div class="confirmation-message">
+            <p>Votre commande a été passée avec succès. Nous vous remercions pour votre confiance, {{ commande.nom_client }} !</p>
+        </div>
+        <div class="actions">
+            <form action="{% url 'annuler_commande' commande.id %}" method="post" id="deleteForm">
+                {% csrf_token %}
+                <button class="annuler" type="submit">Annuler Commande</button>
+            </form>
+            <button class="telecharger" onclick="telechargerFacture('{{ commande.id }}')">
+                Télécharger Facture
+            </button>
+        </div>
+        <button class="btn-home" onclick="retourAccueil()">Accueil</button>
+    </div>
+
+   <!-- Script JavaScript pour télécharger la facture en PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script>
+    // Fonction pour télécharger la facture en PDF
+    function telechargerFacture(commandeId) {
+        fetch('/telecharger_facture/' + commandeId + '/', {
+            method: 'GET',
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            // Créer un objet URL à partir du blob
+            const url = window.URL.createObjectURL(blob);
+            // Créer un lien temporaire pour le téléchargement
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `facture_${commandeId}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Erreur lors du téléchargement de la facture:', error));
+    }
+
+    // Fonction pour retourner à la page d'accueil
+    function retourAccueil() {
+        window.location.href = "/";
+    }
+</script>
+
+</body>
+</html>
+

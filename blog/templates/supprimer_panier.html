@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Supprimer du panier</title>
+</head>
+<body>
+    <h1>Supprimer du panier</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Êtes-vous sûr de vouloir supprimer cet article du panier ?</p>
+        <button type="submit">Supprimer</button>
+        <a href="{% url 'panier' %}">Annuler</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Fond bleu foncé pour le navbar */
+        nav {
+            background-color: #001f3f;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffdd57; /* Jaune plus clair au survol */
+        }
+
+        footer {
+            background-color: #002b5c; /* Bleu légèrement plus clair */
+            color: white;
+            padding: 60px 20px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        footer h5 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #f4d35e; /* Jaune doré pour le titre */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        footer h5::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #f4d35e; /* Jaune doré pour la ligne après le titre */
+            left: 0;
+            bottom: -10px;
+        }
+
+        footer p,
+        footer ul {
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #f4d35e; /* Jaune doré pour les liens */
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        footer a:hover {
+            color: #ffdd57; /* Jaune plus clair au survol */
+            transform: translateX(5px);
+        }
+
+        footer .social-icons a {
+            color: white;
+            font-size: 24px;
+            margin: 0 10px;
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid white;
+            transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        footer .social-icons a:hover {
+            background: #f4d35e; /* Jaune doré au survol */
+            color: #001f3f; /* Bleu foncé pour les icônes */
+            border-color: #f4d35e; /* Jaune doré pour la bordure */
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 10px #f4d35e; /* Lueur jaune doré au survol */
+        }
+
+        footer .text-center {
+            margin-top: 40px;
+        }
+
+        footer .text-center p {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        footer .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        footer .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        footer .container>div {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        footer .wave {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDIwMCI+PHBhdGggZD0iTTAgMGgyMDBMMCAxMDBMMjAwIDIwMEwwIDEwMCIgZmlsbD0iIzAwMTgzZiIgLz48cGF0aCBkPSJNMTIwMCAwaDIwMEwxMjAwIDEwMEwyMDAgMjAwTDEyMDAgMTAwIiBmaWxsPSIjMDA1NmIzIiAvPjwvc3ZnPg==') repeat-x;
+            background-size: cover;
+        }
+
+        @media (max-width: 768px) {
+            footer .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            footer .container>div {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+   
+    <footer>
+        <div class="wave"></div>
+        <div class="background-overlay"></div>
+        <div class="container">
+            <div>
+                <h5>À propos de nous</h5>
+                <p>La Petite Chèvre transforme le lait en délicieux fromages artisanaux. Découvrez nos produits de qualité supérieure.</p>
+            </div>
+            <div>
+                <h5>Contactez-nous</h5>
+                <ul>
+                    <li>Email: <a href="mailto:contact@lapetitechevre.com">contact@lapetitechevre.com</a></li>
+                    <li>Téléphone: +223 70 43 65 58 </li>
+                    <li>Adresse: 123 Rue de la Fromagerie, Bamako, Mali</li>
+                </ul>
+            </div>
+            <div>
+                <h5>Suivez-nous</h5>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/LaPetiteChevre" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/LaPetiteChevre" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@LaPetiteChevre" target="_blank"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <p>&copy; 2024 La Petite Chèvre. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

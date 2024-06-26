@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Panier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            position: relative;
+            font-weight: 700;
+        }
+        h1:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #3498db;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .panier-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            object-fit: cover;
+        }
+        .panier-total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            border-top: 2px solid #3498db;
+            padding-top: 20px;
+        }
+        .btn-retour, .btn-commander, .btn-supprimer {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: #fff;
+            border: none;
+        }
+        .btn-retour:hover, .btn-commander:hover, .btn-supprimer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .btn-retour:hover::before, .btn-commander:hover::before, .btn-supprimer:hover::before {
+            transform: translate(-50%, -50%) scale(3);
+        }
+        .cart-icon {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        .btn-retour:hover .cart-icon, .btn-commander:hover .cart-icon, .btn-supprimer:hover .cart-icon {
+            transform: rotate(360deg);
+        }
+        .btn-retour:hover, .btn-commander:hover, .btn-supprimer:hover {
+            transform: scale(1.1);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .btn-retour, .btn-commander, .btn-supprimer {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Votre Panier</h1>
+        {% if lignes_panier %}
+        <div class="panier-items">
+            <table>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantité</th>
+                    <th>Prix total</th>
+                    <th>Actions</th>
+                </tr>
+                {% for ligne in lignes_panier %}
+                <tr class="panier-item">
+                    <td><img src="{{ ligne.article.image.url }}" alt="{{ ligne.article.title }}"></td>
+                    <td>{{ ligne.article.title }}</td>
+                    <td>{{ ligne.article.prix }} FCFA</td>
+                    <td>
+                        <form action="{% url 'modifier_quantite_panier' ligne.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="number" name="nouvelle_quantite" value="{{ ligne.quantite }}" min="1">
+                            <button type="submit" class="btn-retour">Modifier</button>
+                        </form>
+                    </td>
+                    <td>{{ ligne.prix_total }} FCFA</td>
+                    <td>
+                        <form action="{% url 'supprimer_panier' ligne.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-supprimer">
+                                <i class="fas fa-trash-alt cart-icon"></i>Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="panier-total">
+            Total: {{ total_prix }} FCFA
+        </div>
+        <a href="{% url 'fromage' %}" class="btn-retour">Retour à l'accueil</a>
+        <form action="{% url 'panier_validez' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-commander">Commander</button>
+        </form>
+        {% else %}
+        <div class="panier-vide">
+            <p>Votre panier est vide.</p>
+            <a href="{% url 'fromage' %}" class="btn-retour">Retour à l'accueil</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

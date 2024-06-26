@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'article</title>
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff; /* Fond blanc */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            padding: 40px;
+            max-width: 800px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: bounceInDown 1s forwards;
+        }
+        /* Styles des détails de l'article */
+        .article-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: slideInUp 1s forwards;
+        }
+        .article-details img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        .article-details img:hover {
+            transform: scale(1.1);
+        }
+        .article-details h3 {
+            color: #d9534f;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            animation: pulse 1s infinite alternate;
+        }
+        .article-details p {
+            color: #555;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        /* Styles du formulaire et du bouton */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+            text-transform: uppercase;
+        }
+        .form-group input {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            width: 200px;
+            text-align: center;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+        }
+        /* Styles du bouton Ajouter au panier */
+        .btn-ajouter {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 35px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            margin: 20px 0;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 1s infinite alternate;
+        }
+        .btn-ajouter:hover {
+            background-color: #c9302c;
+            transform: scale(1.05);
+        }
+        /* Styles du bouton Retour à l'accueil */
+        .btn-home {
+            text-decoration: none;
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 35px;
+            margin-top: 20px;
+            color: #fff;
+            background-color: #5bc0de;
+            border: 2px solid #5bc0de;
+            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-home:hover {
+            background-color: #31b0d5;
+            border-color: #31b0d5;
+            transform: translateY(-5px);
+        }
+        /* Animations */
+        @keyframes bounceInDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Détails de l'article</h1>
+        <div class="article-details">
+            <img src="{{ article.image.url }}" alt="{{ article.nom }}">
+            <h3>{{ article.nom }}</h3>
+            <p>Prix: {{ article.prix }} CFA</p>
+            <form action="{% url 'ajouter_au_panier' article.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="quantite">Quantité :</label>
+                    <input type="number" id="quantite" name="quantite" min="1" value="1" required>
+                </div>
+                <button type="submit" class="btn-ajouter">Ajouter au panier</button>
+            </form>
+            <a href="{% url 'fromage' %}" class="btn-home">Retour à l'accueil</a>
+        </div>
+    </div>
+</body>
+</html>
+

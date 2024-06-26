@@ -1,0 +1,386 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Design</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap');
+
+    /* Navbar styles */
+    .navbar {
+      background-color: #2C3E50; /* Fond bleu foncé */
+      padding: 1.5rem 3rem;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      border-radius: 25px;
+      animation: gradientAnimation 10s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .nav-link {
+      color: #FFFFFF !important;
+      /* White text */
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      margin: 0 0.5rem;
+    }
+
+    .nav-link:hover {
+      color: #FFD700 !important;
+      /* Gold color on hover */
+      text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
+      background-color: rgba(255, 215, 0, 0.2);
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .navbar-brand img {
+      transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+      border-radius: 50%;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-brand img:hover {
+      transform: scale(1.3) rotate(-5deg);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Toggle button */
+    .navbar-toggler {
+      border: none;
+      background-color: transparent !important;
+      outline: none;
+    }
+
+    .navbar-toggler .fas {
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .navbar-toggler:hover .fas {
+      color: #FFD700;
+    }
+
+    /* Additional styles for a more polished look */
+    .nav-item {
+      margin: 0 0.75rem;
+    }
+
+    .logo {
+      border-radius: 50%;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .logo:hover {
+      transform: scale(1.2) rotate(5deg);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #FFD700;
+      /* Gold border for avatar */
+      transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    }
+
+    .avatar:hover {
+      border-color: #FFFFFF;
+      /* White border on hover */
+      transform: scale(1.2);
+    }
+
+    /* Search form */
+    .search-form {
+      position: relative;
+    }
+
+    .search-input {
+      width: 200px;
+      padding: 10px;
+      border-radius: 25px;
+      border: 2px solid #FFD700;
+      /* Gold border for input field */
+      background-color: transparent;
+      color: #FFFFFF;
+      transition: width 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    }
+
+    .search-input:focus {
+      width: 250px;
+      border-color: #FFFFFF;
+      /* White border on focus */
+    }
+
+    .search-button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px;
+      border-radius: 25px;
+      border: none;
+      background-color: #FFD700;
+      /* Gold color for button */
+      color: #FFFFFF;
+      font-weight: bold;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .search-button:hover {
+      background-color: #FFFFFF;
+      /* White color on hover */
+      color: #FFD700;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar chic et séduisante -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-gradient">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Navbar brand (logo) -->
+      <a class="navbar-brand" href="{% url 'entreprise' %}">
+        <img src="{% static 'img/logo.jpg' %}" height="130" alt="Logo" loading="lazy"
+          class="logo animate__animated animate__bounceIn" />
+      </a>
+      <!-- Toggle button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'fromage' %}">Accueil</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Produit</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'formulaire_contact' %}">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'liste_commandes' %}">À propos de nous</a>
+          </li>
+        </ul>
+        <!-- Right elements -->
+        <div class="d-flex align-items-center ms-auto">
+          <!-- Icon -->
+          {% if user.is_authenticated %}
+        <a class="link-secondary me-3" href="{% url 'panier' %}">
+        <i class="fas fa-shopping-cart"></i>
+        {% if liste_articles %}
+        <span class="badge bg-primary">{{ liste_articles.count }}</span>
+        {% endif %}
+        </a>
+        
+        {% endif %}
+
+        {% if user.is_authenticated %}
+          <!-- Notifications dropdown -->
+          <div class="dropdown me-3">
+            <!-- Dropdown toggle button -->
+            <a class="link-secondary dropdown-toggle hidden-arrow" href="{% url 'message_list' %}" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-bell"></i>
+                <!-- Modification de la balise span pour afficher le nombre de messages -->
+                <span id="badge-messages" class="badge rounded-pill badge-notification bg-danger animate__animated animate__flash">
+                    {% if messages %}
+                        {{ messages.count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </span>
+            </a>
+            <!-- Dropdown menu -->
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                    <a class="dropdown-item" href="{% url 'message_list' %}">Message</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+        <!DOCTYPE html>
+        <html lang="fr">
+        
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+            <!-- Ajout de Font Awesome pour les icônes -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+            <style>
+                .dropdown-menu a,
+                .dropdown-menu span {
+                    display: block;
+                    padding: 10px 20px;
+                    color: #333;
+                    text-decoration: none;
+                }
+        
+                .dropdown-menu a:hover,
+                .dropdown-menu span:hover {
+                    background-color: #f4d35e;
+                    color: #fff;
+                }
+        
+                .avatar {
+                    font-size: 24px;
+                    color: #333;
+                }
+        
+                .avatar:hover {
+                    color: #f4d35e;
+                }
+                .dropdown-menu {
+    padding: 10px;
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.dropdown-item:hover {
+    background-color: #f4d35e;
+    color: #fff;
+}
+
+.nav-item.text-center {
+    margin-top: 10px;
+}
+
+.nav-link.text-dark {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+            </style>
+        </head>
+        
+        <body>
+            <!-- Avatar dropdown -->
+<div class="dropdown">
+  <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
+      role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <!-- Icône d'avatar stylisée -->
+      <div class="avatar-circle">
+          <i class="fas fa-user-circle fa-3x avatar-icon"></i>
+      </div>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+      {% if user.is_authenticated %}
+      <li>
+          <span class="dropdown-item text-center">Bonjour, {{ user.username }}</span>
+      </li>
+      <li>
+          <a class="dropdown-item text-center" href="{% url 'logout' %}">Déconnexion</a>
+      </li>
+      <li class="nav-item text-center">
+          <a class="nav-link text-dark" href="{% url 'historique_commandes' %}">Historique des Commandes</a>
+      </li>
+      {% else %}
+      <li>
+          <a class="dropdown-item text-center" href="{% url 'login' %}">Connexion</a>
+      </li>
+      <li>
+          <a class="dropdown-item text-center" href="{% url 'register' %}">Inscription</a>
+      </li>
+      {% endif %}
+  </ul>
+</div>
+
+<style>
+  /* Styles pour l'icône d'avatar */
+  .avatar-circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      background-color: #3498db;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .avatar-icon {
+      color: #fff;
+      transition: transform 0.3s ease;
+  }
+
+  /* Hover effect */
+  .avatar-circle:hover {
+      background-color: #2980b9;
+      transform: rotate(360deg);
+  }
+
+  .avatar-circle:hover .avatar-icon {
+      transform: scale(1.1) rotate(-360deg);
+  }
+</style>
+
+          <!-- Search form -->
+          <form method="get" action="{% url 'home' %}" class="search-form animate__animated animate__fadeInLeft">
+            <div class="input-group">
+              <input type="text" name="search" class="form-control rounded-start search-input"
+                placeholder="Rechercher un article..." value="{{ request.GET.search }}">
+              <button type="submit" class="btn btn-primary rounded-end search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- Right elements -->
+      </div>
+      <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

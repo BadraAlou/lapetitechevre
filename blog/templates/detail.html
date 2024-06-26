@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center">
+            <h2 class="display-4 font-weight-bold mb-4 animate__animated animate__bounceInDown" style="color: #3498db;">Détail de l'article</h2>
+            <p class="lead animate__animated animate__fadeInUp">Découvrez les détails captivants de notre incroyable sélection d'articles.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg h-100 animate__animated animate__fadeInLeft">
+                <img src="{{ article.image.url }}" class="card-img-top rounded-top" alt="Image de l'article">
+                <div class="card-body">
+                    <h1 class="card-title">{{ article.title }}</h1>
+                    <p class="card-text">{{ article.desc }}</p>
+                    <p class="card-text animate__animated animate__fadeInUp">Prix: {{ article.prix }} FCFA</p>
+                    <div class="d-flex justify-content-between align-items-center animate__animated animate__fadeInRight">
+                        <a href="{% url 'acheter_article' article.id %}" class="btn btn-primary animate__animated animate__backInDown">Acheter</a>
+                        <!-- Ajout du bouton "Ajouter au Panier" -->
+                        <form id="ajouter-panier-form" method="post" action="{% url 'ajouter_au_panier' article.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantite" value="1">
+                            <button type="submit" class="btn btn-success animate__animated animate__backInUp">Ajouter au Panier</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg h-100 animate__animated animate__fadeInRight">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4 animate__animated animate__flipInX" style="color: #FFD700;">Articles Connexes</h3>
+                    <div class="row">
+                        {% for related_article in aer %}
+                        {% if article.id != related_article.id %}
+                        <div class="col-md-6 mb-3 animate__animated animate__zoomIn">
+                            <div class="card h-100 border-0">
+                                <img src="{{ related_article.image.url }}" class="card-img-top rounded" alt="Image de l'article connexe">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ related_article.title }}</h5>
+                                    <p class="card-text" style="height: 80px; overflow: hidden;">{{ related_article.desc }}</p>
+                                    <a href="{% url 'detail' related_article.id %}" class="btn btn-primary animate__animated animate__fadeInUp">Voir plus</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('.card').hover(
+            function() {
+                $(this).addClass('shadow-lg').css('transition', 'all 0.3s ease');
+            },
+            function() {
+                $(this).removeClass('shadow-lg');
+            }
+        );
+
+        $('#ajouter-panier-form').submit(function(event) {
+            event.preventDefault();  // Empêche le rechargement de la page
+
+            var form = $(this);
+            var formData = form.serialize();
+
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: formData,
+                success: function(response) {
+                    // Ne faites rien en cas de succès
+                },
+                error: function(response) {
+                    // Ne faites rien en cas d'erreur
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

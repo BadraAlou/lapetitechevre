@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Petite Chèvre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #001f3f; /* Dark blue background */
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        #image-container {
+            position: relative;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            z-index: 2;
+        }
+
+        #cheese-img {
+            max-width: 100%;
+            height: auto;
+            animation: rotateScale 10s linear infinite;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes rotateScale {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #company-description {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            animation: moveUp 2s ease-in-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        @keyframes moveUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #ffdc00; /* Gold color */
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            animation: textGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 220, 0, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 220, 0, 1);
+            }
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        #background-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle.small {
+            width: 50px;
+            height: 50px;
+        }
+
+        .circle.medium {
+            width: 100px;
+            height: 100px;
+        }
+
+        .circle.large {
+            width: 150px;
+            height: 150px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: particleMove 10s linear infinite;
+        }
+
+        @keyframes particleMove {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100vw, 100vh);
+                opacity: 0;
+            }
+        }
+
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            filter: blur(50px);
+            animation: glowMove 6s ease-in-out infinite;
+        }
+
+        .glow.one {
+            top: 10%;
+            left: 15%;
+        }
+
+        .glow.two {
+            top: 60%;
+            left: 75%;
+        }
+
+        @keyframes glowMove {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            50% {
+                transform: translateX(20px) translateY(-20px);
+            }
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        .parallax {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('{% static "img/background.jpg" %}') no-repeat center center / cover;
+            z-index: -1;
+            animation: parallaxMove 30s linear infinite;
+        }
+
+        @keyframes parallaxMove {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+        .btn-voir-membres {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #00008B; /* Couleur de fond */
+            color: #FFFFFF; /* Couleur du texte */
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid #FFFFFF; /* Bordure blanche */
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .btn-voir-membres:hover {
+            background-color: #FFFFFF; /* Changement de couleur au survol */
+            color: #00008B;
+            border-color: #00008B;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'membres' %}" class="btn-voir-membres">Voir les membres</a>
+
+<div class="parallax"></div>
+
+<main>
+    <div id="background-elements">
+        <div class="circle small" style="top: 10%; left: 20%;"></div>
+        <div class="circle medium" style="top: 30%; left: 60%;"></div>
+        <div class="circle large" style="top: 70%; left: 30%;"></div>
+        <div class="particle" style="top: 50%; left: 50%;"></div>
+        <div class="particle" style="top: 20%; left: 80%;"></div>
+        <div class="particle" style="top: 80%; left: 10%;"></div>
+        <div class="glow one"></div>
+        <div class="glow two"></div>
+    </div>
+    <div id="image-container">
+        <img id="cheese-img" src="{% static 'img/logo.jpg' %}" alt="La Petite Chèvre - Fromage">
+        <div id="company-description">
+            <h2>La Petite Chèvre</h2>
+            <p>Notre entreprise est spécialisée dans la transformation du lait en délicieux fromage de chèvre. Nous sélectionnons les meilleurs ingrédients pour offrir à nos clients des produits de qualité supérieure.</p>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
+{% endblock %}

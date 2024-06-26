@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Messages envoyés</h2>
+    <style>
+        /* Styles CSS pour message_list.html */
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .message-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .message-item {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .message-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            padding: 15px 20px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .message-body {
+            padding: 20px;
+            text-align: center;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .message-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .delete-form button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .delete-form button:hover {
+            background-color: #c82333;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <div class="message-list">
+        {% for message in messages %}
+        <div class="message-item">
+            <div class="message-header">
+                {{ message.name }} - {{ message.timestamp|date:"DATETIME_FORMAT" }}
+            </div>
+            <div class="message-body">
+                {{ message.message }}
+            </div>
+            <div class="message-actions">
+                <form action="{% url 'delete_message' message.id %}" method="post" class="delete-form">
+                    {% csrf_token %}
+                    <button type="submit">Supprimer</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

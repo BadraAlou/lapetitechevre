@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter au panier</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            margin: 20px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideInRight 1s ease forwards;
+        }
+        h1 {
+            color: #ff6347;
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: bounceInDown 1s ease forwards;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 1s ease forwards;
+        }
+        label {
+            color: #00008B;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #00008B;
+            margin-bottom: 20px;
+            width: 200px;
+            font-size: 1.2em;
+        }
+        button {
+            padding: 12px 30px;
+            background-color: #00008B;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes bounceInDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ajouter au panier</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="quantite">Quantité :</label>
+            <input type="number" id="quantite" name="quantite" value="1" min="1"><br>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+</body>
+</html>

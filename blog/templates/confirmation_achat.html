@@ -1,0 +1,22 @@
+<!-- templates/confirmation_achat.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Confirmation d'Achat</h1>
+    <p><strong id="nomClient">Nom du Client :</strong> {{ commande.nom_client }}</p>
+    <p><strong id="produit">Produit :</strong> {{ commande.produit }}</p>
+    <p><strong id="quantite">Quantité :</strong> {{ commande.quantite }}</p>
+    <p><strong id="prixUnitaire">Prix Unitaire :</strong> {{ commande.prix_unitaire }} €</p>
+    <p><strong id="total">Prix Total :</strong> {{ commande.total }} €</p>
+    <p><strong id="modesPaiement">Mode de Paiement :</strong> {{ commande.modes_paiement }}</p>
+    <p><strong id="numeroTelephone">Numéro de Téléphone :</strong> {{ commande.numero_telephone }}</p>
+    <p><strong id="adresse">Adresse :</strong> {{ commande.adresse }}</p>
+</div>
+<div class="actions">
+    <button class="telecharger" onclick="telechargerFacture('{{ commande.id }}')">
+        Télécharger la Facture
+    </button>
+    <a href="{% url 'annuler_commande' commande.id %}" class="annuler">Annuler la Commande</a>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acheter Article</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f8f9fa; /* Bleu foncé */
+            color: #4169E1; /* Argenté */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .thank-you {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .options {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Acheter {{ article.title }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="nom_client">Nom du Client:</label>
+            <input type="text" id="nom_client" name="nom_client" required>
+            <label for="numero_telephone">Numéro de téléphone:</label>
+            <input type="text" id="numero_telephone" name="numero_telephone" required>
+            <label for="adresse">Adresse:</label>
+            <input type="text" id="adresse" name="adresse" required>
+            <label for="quantite">Quantité:</label>
+            <input type="number" id="quantite" name="quantite" required>
+            <label for="modes_paiement">Mode de Paiement:</label>
+            <select id="modes_paiement" name="modes_paiement" required>
+                <option value="orange_money">Orange Money</option>
+                <option value="money_gram">Money Gram</option>
+                <option value="carte_visa">Carte Visa</option>
+            </select>
+            <label for="prix_unitaire">Prix Unitaire:</label>
+            <input type="text" id="prix_unitaire" name="prix_unitaire" value="{{ article.prix }} FCFA" readonly>
+            <input type="submit" value="Valider">
+        </form>
+        <div class="thank-you">
+            Merci de votre confiance ! Nous vous garantissons une expérience d'achat exceptionnelle.
+        </div>
+    </div>
+
+    <script>
+        function toggleOptions() {
+            $('.options').slideToggle();
+        }
+    </script>
+</body>
+</html>
+
+{% endblock %}

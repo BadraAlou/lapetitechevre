@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'css/Bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-color: #00008B; /* Bleu foncé */
+        }
+    </style>
+</head>
+<body>
+    {% include '_nav.html' %}
+    {% block content %}
+    {% endblock %}
+    {% include '_footer.html' %}
+    <!-- Messages flash -->
+    {% if messages %}
+        <div class="alert alert-success">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/Bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mdb.umd.min.js' %}"></script>
+    <script type="text/javascript"></script>
+</body>
+</html>

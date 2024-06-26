@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A propos de nous - La Petite Chèvre</title>
+    <style>
+        /* Styles CSS */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        main {
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-description {
+            font-size: 1.5rem;
+            line-height: 2;
+            margin-bottom: 30px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .service-box {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            color: #ff7e5f;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .service-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-description {
+            font-size: 1.4rem;
+            line-height: 2;
+            text-align: center;
+        }
+
+        #cheese-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            margin: 40px 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (responsive video) */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .video-wrapper:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+    </style>
+    <!-- Ajout de Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+<main>
+    <!-- Section Bienvenue -->
+    <section id="welcome-section">
+        <div class="container">
+            <h2 class="section-title">Bienvenue chez La Petite Chèvre</h2>
+            <p class="section-description">Nous partageons notre passion pour le fromage avec vous.</p>
+            <p class="section-description">Chaque fromage est un hommage à l'artisanat et à la qualité.</p>
+            <p class="section-description">Explorez un monde de saveurs uniques avec nous.</p>
+            <img id="cheese-img" src="{% static 'imagefromage/logo.jpg' %}" alt="Fromage - La Petite Chèvre">
+        </div>
+    </section>
+
+    <!-- Section Services -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Nos Engagements</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="service-box">
+                        <i class="fas fa-laptop service-icon"></i>
+                        <h3 class="service-title">Transformation Artisanale</h3>
+                        <p class="service-description">Chaque fromage est créé avec soin selon des méthodes artisanales traditionnelles.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="service-box">
+                        <i class="fas fa-chart-bar service-icon"></i>
+                        <h3 class="service-title">Qualité Supérieure</h3>
+                        <p class="service-description">Engagement envers des ingrédients de haute qualité pour des fromages au goût exceptionnel.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="service-box">
+                        <i class="fas fa-envelope service-icon"></i>
+                        <h3 class="service-title">Service Clientèle</h3>
+                        <p class="service-description">Équipe dédiée pour répondre à vos besoins avec efficacité et professionnalisme.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Vidéos -->
+    <section id="videos-section">
+        <div class="container">
+            <h2 class="section-title">Découvrez Notre Processus</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="video-wrapper">
+                        <video autoplay loop muted>
+                            <source src="{% static 'imagefromage/large (1).mp4' %}" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="video-wrapper">
+                        <video autoplay loop muted>
+                            <source src="{% static 'imagefromage/kabavideo.mp4' %}" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Notre Histoire -->
+    <section id="history-section">
+        <div class="container">
+            <h2 class="section-title">Notre Histoire</h2>
+            <p class="section-description">Passion pour le fromage et engagement envers la qualité.</p>
+            <p class="section-description">Créer des fromages uniques, riches en saveur et en histoire.</p>
+            <p class="section-description">Rejoignez-nous pour une expérience gustative inoubliable.</p>
+        </div>
+    </section>
+
+    <!-- Section Localisation -->
+    <section id="location-section">
+        <div class="container">
+            <h2 class="section-title">Notre Localisation</h2>
+            <button id="open-map-btn" class="btn">Ouvrir la Carte</button>
+            <div id="map-container" style="height: 500px; display: none;"></div>
+            <button id="close-map-btn" class="btn">Fermer la Carte</button>
+        </div>
+    </section>
+</main>
+
+<!-- Ajout de Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // JavaScript personnalisé pour la carte Leaflet
+    var map = L.map('map-container').setView([12.6392, -8.0029], 13); // Coordonnées de Bamako
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    var marker = L.marker([12.6392, -8.0029]).addTo(map); // Coordonnées de "La Petite Chèvre" à Bamako
+    marker.bindPopup("<b>La Petite Chèvre</b><br>Bamako").openPopup();
+// Gestion de l'ouverture et de la fermeture de la carte
+document.getElementById('open-map-btn').addEventListener('click', function() {
+    document.getElementById('map-container').style.display = 'block';
+    map.invalidateSize();
+});
+
+document.getElementById('close-map-btn').addEventListener('click', function() {
+    document.getElementById('map-container').style.display = 'none';
+});
+</script>
+
+</body>
+</html>
+{% endblock %}
+
+   

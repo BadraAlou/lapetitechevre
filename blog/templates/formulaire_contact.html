@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background: url("{% static 'path_to_your_map_image.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+        background-color: #fff; /* Dark blue background color */
+        color: #fff; /* White text color */
+        font-family: Arial, sans-serif; /* Font family */
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .contact-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    .contact-form {
+        background: rgba(0, 0, 0, 0.8); /* Darker background */
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        max-width: 600px;
+        width: 100%;
+    }
+    .contact-form .form-control {
+        border-radius: 10px;
+        border: 2px solid #fff;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #000;
+        font-size: 18px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    .contact-form .btn {
+        border-radius: 20px;
+        background-color: #3498db;
+        color: #fff;
+        font-size: 20px;
+        padding: 15px 30px;
+        margin-top: 20px;
+        width: 100%;
+    }
+    .contact-form .btn:hover {
+        background-color: #2980b9;
+    }
+    .contact-title {
+        font-size: 40px;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .contact-image {
+        max-height: 300px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .contact-buttons .btn {
+        margin: 20px;
+        font-size: 24px;
+        padding: 20px 40px;
+        position: relative;
+    }
+    .contact-buttons .btn i {
+        margin-right: 10px;
+    }
+    .tooltip-text {
+        display: none;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        z-index: 999;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .contact-buttons .btn:hover .tooltip-text {
+        display: inline-block;
+    }
+    @media screen and (max-width: 768px) {
+        .contact-form {
+            padding: 30px;
+        }
+        .contact-title {
+            font-size: 30px;
+        }
+        .contact-image {
+            max-height: 200px;
+        }
+        .contact-form .form-control,
+        .contact-form .btn {
+            font-size: 16px;
+            padding: 10px;
+        }
+        .contact-buttons .btn {
+            font-size: 18px;
+            padding: 15px 30px;
+        }
+    }
+</style>
+
+<div class="contact-container">
+    <div class="contact-form" style="background-color: #1c1c1c;"> <!-- Change la couleur du fond -->
+        <h2 class="contact-title">Nous sommes là pour vous</h2>
+        <img src="{% static 'imagefromage/messagecap.png' %}" alt="Contact Image" class="img-fluid contact-image">
+        <form id="contact-form" method="post" action="" class="needs-validation" novalidate onsubmit="return validateMessage()">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" id="id_name" name="name" placeholder="Nom Complet" required>
+                <div class="invalid-feedback">Veuillez saisir votre nom complet.</div>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" id="id_email" name="email" placeholder="Email" required>
+                <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
+            </div>
+           
+            <div class="form-group">
+                <textarea class="form-control" id="id_message" name="message" rows="5" placeholder="Votre Message" required></textarea>
+                <div class="invalid-feedback">Veuillez saisir votre message.</div>
+            </div>
+            <button type="submit" class="btn">Envoyer</button>
+        </form>
+        <div class="text-center mt-4">
+            <p>Besoin d'aide ? Contactez-nous !</p>
+            <div class="btn-group contact-buttons" role="group" aria-label="Contacts">
+                <a href="#id_message" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="70436558">
+                    <i class="fas fa-comment-dots mr-2"></i>Chat en Direct
+                    <span class="tooltip-text">70436558</span>
+                </a>
+                <a href="#id_email" class="btn btn-primary rounded-pill" data-toggle="tooltip" data-placement="top" title="mamadoukabakonate@gmail.com">
+                    <i class="fas fa-envelope mr-2"></i>Email
+                    <span class="tooltip-text">mamadoukabakonate@gmail.com</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateMessage() {
+        var message = document.getElementById('id_message').value.trim();
+        if (message === '') {
+            alert('Veuillez saisir votre message.');
+            return false;
+        }
+        return true;
+    }
+
+    // Script pour défilement vers les champs Email et Message
+    document.querySelectorAll('.contact-buttons a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Activation des tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+{% endblock %}

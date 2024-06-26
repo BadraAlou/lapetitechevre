@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <!-- Inclure Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Styles CSS personnalisés -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif; /* Police moderne */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            animation: animateContainer 1s ease-in-out alternate infinite; /* Animation du container */
+        }
+        @keyframes animateContainer {
+            0% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(5px);
+            }
+        }
+        h1 {
+            color: #00008B; /* Couleur du titre */
+            font-size: 3.5em; /* Taille de police */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ombre du texte */
+        }
+        form {
+            width: 100%;
+        }
+        .form-control {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid #ddd;
+            transition: border 0.3s;
+        }
+        .form-control:focus {
+            border-color: #ff5733; /* Couleur de la bordure en focus */
+        }
+        button {
+            background-color: #00008B; /* Couleur du bouton */
+            color: #fff; /* Couleur du texte du bouton */
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2em; /* Taille de police */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ombre du bouton */
+        }
+        button:hover {
+            background-color: #e63900; /* Couleur du bouton au survol */
+            transform: translateY(-3px);
+        }
+        .error-message {
+            color: #00008B;; /* Couleur du message d'erreur */
+            font-weight: bold;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ombre du texte */
+        }
+        .btn-home {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #00008B;
+            color: #fff;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-home:hover {
+            background-color: #e63900;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inscription</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div>
+                <label for="username" class="sr-only">Nom d'utilisateur:</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Nom d'utilisateur">
+            </div>
+            <div>
+                <label for="password" class="sr-only">Mot de passe:</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe">
+            </div>
+            <div>
+                <label for="email" class="sr-only">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+            </div>
+            <button type="submit">S'inscrire</button>
+        </form>
+        {% if error %}
+        <p class="error-message">{{ error }}</p>
+        {% endif %}
+        <a href="/" class="btn-home">Retour à l'accueil</a>
+    </div>
+</body>
+</html>
